@@ -1,0 +1,37 @@
+---
+seed: 321
+plotting: False
+dataset: "sim"
+n: 3000
+p: 1
+sigma_U: 0.2
+alpha_U: 4
+sigma_A: 0.1
+sigma_Y: 0.3
+beta: 0.5
+gamma: 50
+delta: 50
+models:
+  - name: "tsls"
+    meta_learners: ["mriv", "driv"]
+  - name: "waldlinear"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "ncnet"
+    meta_learners: ["mriv", "mrivsingle", "driv"]
+  - name: "tarnet"
+    meta_learners: ["mriv", "driv", "dr"]
+  - name: "dmliv"
+    meta_learners: ["mriv", "driv"]
+  - name: "deepiv"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "deepgmm"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "dfiv"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "kiv"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "bcfiv"
+    meta_learners: [ "mriv", "driv" ]
+
+path: "/sim3000/"
+num_samples: 40

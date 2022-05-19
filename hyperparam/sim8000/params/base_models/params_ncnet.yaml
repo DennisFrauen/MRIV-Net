@@ -1,0 +1,5 @@
+batch_size: 256
+dropout: 0
+hidden_size1: 20
+hidden_size2: 30
+lr: 0.01

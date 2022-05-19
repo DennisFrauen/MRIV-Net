@@ -1,0 +1,28 @@
+---
+seed: 1234
+plotting: False
+dataset: "real"
+models:
+  - name: "tsls"
+    meta_learners: ["mriv", "driv"]
+  - name: "waldlinear"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "ncnet"
+    meta_learners: ["mriv", "mrivsingle", "driv"]
+  - name: "tarnet"
+    meta_learners: ["mriv", "driv", "dr"]
+  - name: "dmliv"
+    meta_learners: ["mriv", "driv"]
+  - name: "deepiv"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "deepgmm"
+    meta_learners: [ "mriv", "driv" ]
+  - name: "dfiv"
+    meta_learners: [ "mriv", "driv" ]
+#  - name: "kiv"
+#    meta_learners: [ "mriv", "driv" ]
+  - name: "bcfiv"
+    meta_learners: [ "mriv", "driv" ]
+
+path: "/real/"
+num_samples: 40

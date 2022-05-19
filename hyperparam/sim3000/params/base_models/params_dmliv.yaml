@@ -1,0 +1,8 @@
+batch_size_dml: 64
+batch_size_nuisance: 64
+dropout_dml: 0
+dropout_nuisance: 0
+hidden_size_dml: 10
+hidden_size_nuisance: 10
+lr_dml: 0.0005
+lr_nuisance: 0.001

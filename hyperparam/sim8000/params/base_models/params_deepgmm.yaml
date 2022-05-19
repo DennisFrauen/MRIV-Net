@@ -1,0 +1,6 @@
+batch_size: 64
+dropout: 0.2
+hidden_size_f: 40
+hidden_size_g: 60
+lambda_f: 5
+lr_g: 0.0001

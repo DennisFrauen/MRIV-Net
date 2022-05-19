@@ -1,0 +1,36 @@
+---
+hyper_path: "/sim5000/"
+seed: 123
+number_experiments: 3
+plotting: False
+dataset: "sim"
+n: 5000
+p: 1
+sigma_U: 0.2
+alpha_U: 4
+sigma_A: 0.1
+sigma_Y: 0.3
+beta: 0.5
+gamma: 50
+delta: 8
+models:
+#  - name: "tsls"
+#    meta_learners: ["mriv", "driv"]
+#  - name: "waldlinear"
+#    meta_learners: ["mriv", "driv"]
+  - name: "ncnet"
+    meta_learners: ["mriv", "driv", "mrivsingle"]
+#  - name: "tarnet"
+#    meta_learners: ["mriv", "driv", "dr"]
+#  - name: "dmliv"
+#    meta_learners: ["mriv", "driv"]
+#  - name: "deepiv"
+#    meta_learners: [ "mriv", "driv" ]
+#  - name: "deepgmm"
+#    meta_learners: [ "mriv", "driv" ]
+#  - name: "dfiv"
+#    meta_learners: [ "mriv", "driv" ]
+#  - name: "kiv"
+#    meta_learners: [ "mriv", "driv" ]
+#  - name: "bcfiv"
+#    meta_learners: [ "mriv", "driv" ]

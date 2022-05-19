@@ -1,0 +1,9 @@
+batch_size: 256
+dropout: 0.3
+hidden_size_phi: 30
+hidden_size_psi: 40
+hidden_size_xi: 30
+lambda1: 0.0001
+lambda2: 0.0001
+lr1: 0.001
+lr2: 0.0001
