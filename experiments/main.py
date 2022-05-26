@@ -11,6 +11,7 @@ import models.dml_dr_iv as dml
 import models.standard_ite as standard_ite
 import random
 import torch
+from datetime import datetime
 
 
 
@@ -64,7 +65,11 @@ def run_experiment(config, return_results=False):
             params = None
             if model_config["name"] not in ["tsls", "waldlinear"]:
                 params = misc.load_hyper_yaml(path=config["hyper_path"], base_model_name=model_config["name"])
+            #time1 = datetime.now()
             trained_model = train_model(model_config, d_train, params)
+            #time2 = datetime.now()
+            #runtime = (time2 - time1).total_seconds()
+            #print(f"Runtime: {runtime}")
             models.append(trained_model)
             # Train meta learners on top of base model
             if "meta_learners" in model_config:
@@ -76,6 +81,7 @@ def run_experiment(config, return_results=False):
                         if meta_learner in ["mriv", "mrivsingle"]:
                             meta_learners.append(train_meta_learner(meta_learner, trained_model, d_train, params,
                                                                     nuisance_mriv))
+
                         elif meta_learner in ["driv", "dr"]:
                             meta_learners.append(train_meta_learner(meta_learner, trained_model, d_train, params,
                                                                     nuisance_driv))

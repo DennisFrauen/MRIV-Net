@@ -81,5 +81,5 @@ if __name__ == "__main__":
 
     grid.add_legend()
     grid.set_titles("")
-    plt.savefig(path + "plot_smoothness.pdf")
+    plt.savefig(path + "plot_smoothness.pdf", bbox_inches='tight')
     plt.show()

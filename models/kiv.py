@@ -57,7 +57,8 @@ class KIV():
         W = numpy.matmul(numpy.matmul(kxx, inv1), kzz_bar)
 
         # Second stage
-        inv2 = numpy.linalg.inv(numpy.matmul(W, numpy.transpose(W)) + m * self.xi * kxx)
+        q = numpy.matmul(W, numpy.transpose(W)) +  m * self.xi * kxx + 0.0001 * np.identity(kxx.shape[0])
+        inv2 = numpy.linalg.inv(q)
         self.alpha = numpy.transpose(numpy.matmul(numpy.matmul(inv2, W), y_2))
         self.X = a_1
 

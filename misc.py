@@ -4,6 +4,7 @@ import yaml
 import torch
 import numpy as np
 import data.sim_gp as sim_gp
+import data.sim_semi as sim_semi
 from data.load_real import load_oregon
 
 
@@ -37,7 +38,7 @@ def binary_cross_entropy(yhat, y):
 
 
 #Output: d_train, d_test, groundtruth train, groundtruth test
-def load_data(config):
+def load_data(config, scale=True):
     print("Create dataset ------------------------")
     # Check whether simulated or real-world data is used
     if config["dataset"] == "sim":
@@ -56,7 +57,18 @@ def load_data(config):
         d_train, d_test, c_train, c_test = sim_gp.train_test_split(data, comp)
         return d_train, d_test, c_train, c_test, scaler
     elif config["dataset"] == "real":
-        return load_oregon()
+        return load_oregon(scale=scale)
+    elif config["dataset"] == "sim_semi":
+        n = config["n"]
+        sigma_U = config["sigma_U"]
+        alpha_U = config["alpha_U"]
+        sigma_A = config["sigma_A"]
+        sigma_Y = config["sigma_Y"]
+        # Generate data
+        data, comp, scaler = sim_semi.simulate_data(n, sigma_U=sigma_U, alpha_U=alpha_U, sigma_Y=sigma_Y, sigma_A=sigma_A,
+                                          plot=config["plotting"], scale=True)
+        d_train, d_test, c_train, c_test = sim_gp.train_test_split(data, comp)
+        return d_train, d_test, c_train, c_test, scaler
 
 
 

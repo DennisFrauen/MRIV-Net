@@ -1,10 +1,10 @@
 ---
-hyper_path: "/sim5000/"
+hyper_path: "/sim3000/"
 seed: 123
 number_experiments: 5
 plotting: False
 dataset: "sim"
-n: 5000
+n: 3000
 p: 1
 sigma_U: 0.2
 alpha_U: 4

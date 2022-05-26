@@ -83,5 +83,5 @@ if __name__ == "__main__":
 
 
     grid.add_legend()
-    plt.savefig(path + "plot_confounding.pdf")
+    plt.savefig(path + "plot_confounding.pdf", bbox_inches='tight')
     plt.show()

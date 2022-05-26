@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as fctnl
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
+from pytorch_lightning.loggers.neptune import NeptuneLogger
 
 
 def rmse(y_hat, y, scaler=1):
@@ -38,7 +39,12 @@ def train_nn(data, config, model_class, epochs=100, validation=True, logging=Tru
     else:
         gpu = 0
     # Train
-    Trainer1 = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, enable_model_summary=False, gpus=gpu,
+    if logging:
+        neptune_logger = NeptuneLogger(project='dennisfrauen/ite-noncomplience')
+        Trainer1 = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, gpus=gpu,
+                              enable_model_summary=False, logger=neptune_logger)
+    else:
+        Trainer1 = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, enable_model_summary=False, gpus=gpu,
                               logger=False, enable_checkpointing=False)
 
     if validation:

@@ -1,0 +1,35 @@
+---
+hyper_path: "/sim3000/"
+seed: 123
+plotting: False
+dataset: "sim"
+n: 3000
+p: 1
+sigma_U: 0.2
+alpha_U: 6
+sigma_A: 0.1
+sigma_Y: 0.3
+beta: 1.5
+gamma: 50
+delta: 50
+models:
+  - name: "tarnet"
+    #meta_learners: ["dr"]
+  - name: "tsls"
+    #meta_learners: ["mriv", "driv"]
+  - name: "kiv"
+    #meta_learners: [ "mriv", "driv" ]
+  - name: "dfiv"
+    #meta_learners: [ "mriv", "driv" ]
+  - name: "deepiv"
+    #meta_learners: [ "mriv", "driv" ]
+  - name: "deepgmm"
+    #meta_learners: [ "mriv", "driv" ]
+  - name: "dmliv"
+    #meta_learners: ["driv"]
+  - name: "waldlinear"
+    #meta_learners: ["mriv", "driv"]
+  - name: "bcfiv"
+    #meta_learners: [ "mriv", "driv" ]
+  - name: "ncnet"
+    meta_learners: ["mriv"]

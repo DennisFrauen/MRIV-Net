@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import misc
 
-def load_oregon():
+def load_oregon(scale=True):
     # Select configuration file here
     path = misc.get_project_path() + "/data/oregon_health_exp/OHIE_Data/"
     data_descr = pd.read_stata(path + "oregonhie_descriptive_vars.dta")
@@ -54,18 +54,21 @@ def load_oregon():
     pi = data[:, -1]
     data = np.delete(data, -1, 1)
 
-    #Standardize outcome
-    sd = np.std(data[:, 0])
-    data[:, 0] = (data[:, 0] - np.mean(data[:, 0])) / sd
-    standardize_info = []
-    #Standardize covariates
-    for i in [3, 4, 5]:
-        mean_i = np.mean(data[:, i])
-        sd_i = np.std(data[:, i])
-        standardize_info.append([mean_i, sd_i])
-        data[:, i] = (data[:, i] - mean_i) / sd_i
+    if scale:
+        #Standardize outcome
+        sd = np.std(data[:, 0])
+        data[:, 0] = (data[:, 0] - np.mean(data[:, 0])) / sd
+        standardize_info = []
+        #Standardize covariates
+        for i in [3, 4, 5]:
+            mean_i = np.mean(data[:, i])
+            sd_i = np.std(data[:, i])
+            standardize_info.append([mean_i, sd_i])
+            data[:, i] = (data[:, i] - mean_i) / sd_i
 
-    return data, [pi, standardize_info], sd
+        return data, [pi, standardize_info], sd
+    else:
+        return data
 
 
 if __name__ == "__main__":

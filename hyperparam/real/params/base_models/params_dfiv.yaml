@@ -1,6 +1,6 @@
 batch_size: 128
 dropout: 0.3
-hidden_size_phi: 10
+hidden_size_phi: 20
 hidden_size_psi: 30
 hidden_size_xi: 15
 lambda1: 0.01

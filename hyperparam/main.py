@@ -32,8 +32,8 @@ def tune_objective(objective, study_name, path, num_samples=10, sampler=None):
     for key, value in trial_best.params.items():
         print("    {}: {}".format(key, value))
 
-    save_dir = path + study_name + ".pkl"
-    joblib.dump(study, save_dir)
+    #save_dir = path + study_name + ".pkl"
+    #joblib.dump(study, save_dir)
     return study
 
 

@@ -1,0 +1,25 @@
+---
+hyper_path: "/real/"
+seed: 123
+number_experiments: 5
+plotting: False
+dataset: "sim_semi"
+n: 8000
+sigma_U: 0.2
+alpha_U: 6
+sigma_A: 0.1
+sigma_Y: 0.3
+models:
+  - name: "tsls"
+  - name: "waldlinear"
+  - name: "ncnet"
+    meta_learners: ["mriv"]
+  - name: "tarnet"
+    meta_learners: ["dr"]
+  - name: "dmliv"
+    meta_learners: ["driv"]
+  - name: "kiv"
+  - name: "deepiv"
+  - name: "deepgmm"
+  - name: "dfiv"
+  - name: "bcfiv"

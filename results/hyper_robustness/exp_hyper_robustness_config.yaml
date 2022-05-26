@@ -1,0 +1,19 @@
+---
+hyper_path: "/sim3000/"
+seed: 1234
+number_experiments: 1
+plotting: False
+dataset: "sim"
+n: 3000
+p: 1
+sigma_U: 0.2
+alpha_U: 4
+sigma_A: 0.1
+sigma_Y: 0.3
+beta: 0.5
+gamma: 50
+delta: 50
+models:
+  - name: "ncnet"
+    meta_learners: ["mriv"]
+

@@ -5,55 +5,29 @@ import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import euclidean_distances
 from scipy.stats import norm
 import misc
+from data.load_real import load_oregon
 
 
-def simulate_data(n, p=1, sigma_U=0.05, alpha_U=1, sigma_A=1, sigma_Y=1, plot=True, scale=True,
-                  beta=0.5, gamma=50, delta=50):
+def simulate_data(n, sigma_U=0.05, alpha_U=1, sigma_A=1, sigma_Y=1, plot=True, scale=True):
+    data_real, [pi, standarize_info], sd_oregon = load_oregon(scale=True)
+    ZX_real = data_real[np.random.choice(data_real.shape[0], n, replace=False), 2:]
+    X = ZX_real[:, 1:]
+    Z = ZX_real[:, 0]
 
-    # Observed confounders
-    oversupply = 3000
-    X = np.random.normal(size=(n + oversupply, p))
-    # Check for too small distances (lead to nan in matern kernel)
-    dist = euclidean_distances(X, X)
-    dist += np.identity(n + oversupply)
-    index = np.argwhere(dist < 0.0001)
-    index = np.sort(index, axis=1)
-    index = np.unique(index[:, 0])
-
-    leftover = oversupply - len(index)
-    assert leftover > 0
-
-    X = np.delete(X, index, axis=0)
-    X = X[:n, :]
-
-    delta_Y = sample_gp_prior(X, nu=gamma)
-    mu_Y0 = sample_gp_prior(X, nu=beta)
-    f1 = sample_gp_prior(X, nu=delta)
-    f0 = sample_gp_prior(X, nu=delta)
-    g = sample_gp_prior(X, nu=delta)
-
-    mu_A1 = 0.3 * expit(f1) + 0.7
-    mu_A0 = 0.3 * expit(f0)
+    #ITE denominators only depend on Age
+    mu_A1 = 0.3 * expit(X[:, 0]) + 0.7
+    mu_A0 = 0.3 * expit(X[:, 0])
     delta_A = mu_A1 - mu_A0
-    mu_Y1 = delta_Y + mu_Y0
+
+    mu_Y1 = np.sum(X[:, 1:]**2, axis=1) + 0.5 * X[:, 0]**2
+    mu_Y0 = np.sum(X[:, 1:]**2, axis=1) - 0.5 * X[:, 0]**2
+    delta_Y = mu_Y1 - mu_Y0
+
     tau = delta_Y / delta_A
-    pi = 0.8*expit(g) + 0.1
-
-
-
-    # Check for correct support
-    assert (delta_A != 0).all()
-    assert (0.7 <= mu_A1).all()
-    assert (mu_A1 <= 1).all()
-    assert (0 <= mu_A0).all()
-    assert (mu_A0 <= 0.3).all()
-    assert np.all(tau - ((mu_Y1 - mu_Y0) / (mu_A1 - mu_A0)) < 0.000001)
 
     # Create dataset------------------------------------------------------------
     #Unobserved confounders
     U = np.random.normal(loc=0, scale=sigma_U, size=n)
-    #Instruments
-    Z = np.random.binomial(1, pi)
     #Treatments
     epsilon_A = np.random.normal(size=n, scale=sigma_A)
     #Calculate quantiles
