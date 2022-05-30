@@ -29,14 +29,22 @@ The semi-synthetic data (Appendix H) is generated via the `data/sim_semi.py.py`.
 #### Reproducing the experiments
 The scripts running the experiments are contained in the `/experiments` folder. There are three directories, one for each dataset (synthetic = `/sim`, real-world = `/real`, and semi-synthetic = `/sim_semi`). Most experiments can be configured by a `.yaml` configuration file. Here, parameters for data generation (e.g., sample size, confounding level, smoothness) as well as the methods used may be adjusted. The following base methods are available (for details see Appendix E):
 
-- `tsls`: Two-stage least squares, 
-- `waldlinear`: Linear Wald estimator,
-- `ncnet`: MRIV (network only),
 - `tarnet`: TARNet,
-- `dmliv`: DMLIV,
+- `tsls`: Two-stage least squares, 
+- `kiv`: Kernel IV,
+- `dfiv`: DFIV,
 - `deepiv`: DeepIV,
+- `deepgmm`: DeepGMM,
+- `dmliv`: DMLIV,
+- `waldlinear`: Linear Wald estimator,
+- `bcfiv`: Wald estimator with BART,
+- `ncnet`: MRIV (network only).
 
-The corresponindg .yaml configuration files can be found in `/experiments/conifg/`. Here, the "treat" parameter denotes the treatment configuration (setting) and takes values in {1,2,3}.
+In addition, meta-learners can be specified for each base method using the `meta_learners` tag. The following meta-learners are available:
+- `driv`: DRIV,
+- `mriv`: LMRIV,
+- `dr`: DR-learner (only for `tarnet`),
+- `mrivsingle`: MRIV using a single representation (only for `ncnet`).
 
 #### Reproducing hyperparameter tuning
 The hyperparameters for the models trained from the /experiments folder are stored under `/hyperparame/parameters`. For reproducing hyperparameter tuning, one needs to run `hyperparam/hyperparameter.py` (synthetic + semi-synthetic data) or hyperparam/hyperparameter_backpain.py (real-world data). Again, the correct configuration files need to be specified, indicating the models and settings.
