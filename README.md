@@ -25,6 +25,9 @@ We use the data from the Oregon Health insurance experiment from Finkelstein et 
 ###### Semi-synthetic data
 The semi-synthetic data (Appendix H) is generated via the `data/sim_semi.py.py`. Note that the OHIE data needs to be downloaded before running the script.
 
+#### Results
+The experiment results are stored in the `/results` folder. Here, all plots and tables from the paper can be reproduced. Re-running the experiments updates the files in the `/results` folder.
+
 
 #### Reproducing the experiments
 The scripts running the experiments are contained in the `/experiments` folder. There are three directories, one for each dataset (synthetic = `/sim`, real-world = `/real`, and semi-synthetic = `/sim_semi`). Most experiments can be configured by a `.yaml` configuration file. Here, parameters for data generation (e.g., sample size, confounding level, smoothness) as well as the methods used may be adjusted. The following base methods are available (for details see Appendix E):
