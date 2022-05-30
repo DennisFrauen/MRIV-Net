@@ -17,24 +17,24 @@ The calculation of the propensity score of the OHIE data (see Appendix D) is per
 In our paper we used three datasets: Synthetic, semi-synthetic and real-world data from the Oregon health insurance experiment (OHIE). 
 
 ###### Synthetic data
-The script for synthetic data generation is `data/sim.py`. Here, the data is simulated accourding to Sec. 5.1. in the paper.
-
-###### Semi-synthetic data
-We use MIMIC-III, which is accessible but must be requested at https://physionet.org/content/mimiciii/1.4/. When MIMIC-III access is granted, the pre-processed data by Wang et. al. (2020) is accessible with instructions in the respective paper. The preprocessed file needs to be added to `datasets/mimic` and should be named `all_hourly_data.h5`. The script `datasets/mimic/mimic.py` extracts covariates and generated synthetic treatments and outcomes.
+The script for synthetic data generation is `data/sim.py`. Here, the data is simulated using Gaussian Processes according to Appendix C in the paper.
 
 ###### Real-world data
-We use the pre-processed data from the clinical study on low back pain patients from Nielsen et al (2017). The data is available in the folder `datasets/backpain/data_preprocessed`.
+We use the data from the Oregon Health insurance experiment from Finkelstein et al (2012). The data is publicly available and can be downloaded together with a detailed documentation on the website `https://www.nber.org/programs-projects/projects-and-centers/oregon-health-insurance-experiment`. To run the experiments, the `.dta` files need to be copied into the folder `data/oregon_health_exp/OHIE_Data`.
+
+###### Semi-synthetic data
+The semi-synthetic data (Appendix H) is generated via the `data/sim_semi.py.py`. Note that the OHIE data needs to be downloaded before running the script.
+
 
 #### Reproducing the experiments
-The scripts running the experiments are contained in the `/experiments` folder. There are three python scripts, one for each dataset (synthetic = sim, semi-synthetic = mimic and real-world = backpain). 
-For the synthetic and semi-synthetic experiments, one needs to specify a configuration file in the main running procedure before running the script. This indicates the models used to obtain results. of the respective script, which specifies the models used to obtain results. The following configurations are possible:
+The scripts running the experiments are contained in the `/experiments` folder. There are three directories, one for each dataset (synthetic = `/sim`, real-world = `/real`, and semi-synthetic = `/sim_semi`). Most experiments can be configured by a `.yaml` configuration file. Here, parameters for data generation (e.g., sample size, confounding level, smoothness) as well as the methods used may be adjusted. The following base methods are available (for details see Appendix E):
 
-1. `config_deepace`: DeepACE without targeting
-2. `config_deepace_tar`: DeepACE with targeting
-3. `config_ltmle_super`: LTMLE with super learner
-4. `config_other`: other longitudinal baselines
-5. `config_gnet`: G-Net
-6. `config_static`: Static baselines
+1. `tsls`: Two-stage least squares, 
+2. `waldlinear`: Linear Wald estimator,
+3. `ncnet`: MRIV (network only),
+4. `tarnet`: TARNet,
+5. `dmliv`: DMLIV,
+6. `deepiv`: DeepIV,
 
 The corresponindg .yaml configuration files can be found in `/experiments/conifg/`. Here, the "treat" parameter denotes the treatment configuration (setting) and takes values in {1,2,3}.
 
