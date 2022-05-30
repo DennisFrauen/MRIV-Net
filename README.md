@@ -42,9 +42,9 @@ The scripts running the experiments are contained in the `/experiments` folder. 
 
 In addition, meta-learners can be specified for each base method using the `meta_learners` tag. The following meta-learners are available:
 - `driv`: DRIV,
-- `mriv`: LMRIV,
+- `mriv`: MRIV,
 - `dr`: DR-learner (only for `tarnet`),
 - `mrivsingle`: MRIV using a single representation (only for `ncnet`).
 
 #### Reproducing hyperparameter tuning
-The hyperparameters for the models trained from the /experiments folder are stored under `/hyperparame/parameters`. For reproducing hyperparameter tuning, one needs to run `hyperparam/hyperparameter.py` (synthetic + semi-synthetic data) or hyperparam/hyperparameter_backpain.py (real-world data). Again, the correct configuration files need to be specified, indicating the models and settings.
+The code for hyperparameter tuning is contained in the `/hyperparam` folder. The main script running the tuning is `main.py`. Furthermore, `parameter_sampling.py` specifies the tuning ranges and `hyper_objecties.py` specifies the validation loss for all methods. The subfolders contain the configuration files and optimal parameters for the different experiments (synthetic (n = 3000) = `/sim3000`, synthetic (n = 5000) = `/sim5000`, synthetic (n = 8000) = `/sim8000`, real-world data = `/real`). The optimal parameters are stored as `.yaml` files in the respective `/params` subfolder.
