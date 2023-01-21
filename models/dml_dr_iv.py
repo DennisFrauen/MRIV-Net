@@ -174,3 +174,25 @@ def get_nuisance_full(data, config, d_val=None):
         return [q, p, r, f], [q_val, p_val, r_val, f_val]
     else:
         return [q, p, r, f]
+
+#Cross-fitting
+def get_nuisance_full_cf(data_list, config):
+    nuisance = []
+    for data in data_list:
+        # Create datasets
+        Y, A, Z, X = helper.split_data(data)
+        data_yx = np.concatenate((np.expand_dims(Y, 1), X), 1)
+        data_ax = np.concatenate((np.expand_dims(A, 1), X), 1)
+        data_zx = np.concatenate((np.expand_dims(Z, 1), X), 1)
+        data_az_x = np.concatenate((np.expand_dims(A * Z, 1), X), 1)
+        # Train nuisance models
+        model_zx, _ = helper.train_nn(data=data_zx, config=config, model_class=helper.ffnn, input_size=X.shape[1],
+                                      validation=False, logging=False, output_type="binary")
+        model_az_x, _ = helper.train_nn(data=data_az_x, config=config, model_class=helper.ffnn, input_size=X.shape[1],
+                                        validation=False, logging=False, output_type="binary")
+        model_yx, _ = helper.train_nn(data=data_yx, config=config, model_class=helper.ffnn, input_size=X.shape[1],
+                                      validation=False, logging=False, output_type="continuous")
+        model_ax, _ = helper.train_nn(data=data_ax, config=config, model_class=helper.ffnn, input_size=X.shape[1],
+                                      validation=False, logging=False, output_type="binary")
+        nuisance.append([model_yx, model_ax, model_zx, model_az_x])
+    return nuisance

@@ -165,3 +165,12 @@ def train_dr_learner(data, init_estimates, config, validation=False, logging=Fal
                                     input_size=data_dr.shape[1] - 1, validation=validation, logging=logging)
     return dr_learner
 
+#nuisance parameters for cross-fitting
+def get_nuisance_full_cf(data_list, config):
+    nuisance = []
+    for data in data_list:
+        Y, A, Z, X = helper.split_data(data)
+        data_ax = np.concatenate((np.expand_dims(A, 1), X), 1)
+        model_pi, _ = helper.train_nn(data=data_ax, config=config, model_class=helper.ffnn, input_size=X.shape[1],
+                                      validation=False, logging=False, output_type="binary")
+        nuisance.append(model_pi)

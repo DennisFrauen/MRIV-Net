@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     conf_levels = list(means_models3.index)[1:6]
     names = ["tarnet", "dr_tarnet", "ncnet", "mriv_ncnet"]
-    captions = ["TARNet", "TARNet + DR", "MRIV-Net\w netowrk only", "MRIV-Net (ours)"]
+    captions = ["TARNet", "TARNet + DR", "MRIV-Net\w network only", "MRIV-Net (ours)"]
     colors = ["orange", "darkred", "deepskyblue", "darkblue"]
     names_means = [name + "_means" for name in names]
     names_sd = [name + "_sd" for name in names]

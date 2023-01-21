@@ -28,8 +28,12 @@ def train_dfiv(data, config, epochs=200, logging=False):
         gpu = 0
 
     # Train model
-
-    Trainer = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, gpus=gpu,
+    if logging:
+        neptune_logger = NeptuneLogger(project='dennisfrauen/ite-noncomplience')
+        Trainer = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, gpus=gpu,
+                             enable_model_summary=False, logger=neptune_logger)
+    else:
+        Trainer = pl.Trainer(max_epochs=epochs, enable_progress_bar=False, gpus=gpu,
                              enable_model_summary=False, logger=False, enable_checkpointing=False)
     Trainer.fit(dfiv, train_dataloaders=loaders)
     # Compute structural function after training using entire dataset

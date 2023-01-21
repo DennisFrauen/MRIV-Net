@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     smooth_levels = list(means_models3.index)[0:3]
     names = ["deepiv", "ncnet", "mriv_ncnet"]
-    captions = ["DeepIV", "MRIV-Net\w netowrk only", "MRIV-Net (ours)"]
+    captions = ["DeepIV", "MRIV-Net\w network only", "MRIV-Net (ours)"]
     colors = ["darkred", "deepskyblue", "darkblue"]
     names_means = [name + "_means" for name in names]
     names_sd = [name + "_sd" for name in names]

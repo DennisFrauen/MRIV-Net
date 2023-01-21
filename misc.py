@@ -102,3 +102,12 @@ def get_meta_names(model_configs):
                     meta_names.append(meta_learner + "_" + base_model_name)
     return meta_names
 
+#Split training data into three different parts for cross-fitting
+def sample_split_cf(d_train, n_datasets=3):
+    n = d_train.shape[0]
+    if n_datasets==3:
+        n1 = int((n - (n % 3)) / 3)
+        return [d_train[:int(n1), :], d_train[n1:2*n1, :], d_train[2*n1:3*n1, :]]
+    else:
+        n1 = int((n - (n % 2)) / 2)
+        return [d_train[:int(n1), :], d_train[n1:2*n1, :]]

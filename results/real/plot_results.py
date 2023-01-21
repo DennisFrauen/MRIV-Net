@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     ages = np.array(list(df_models.index)) + 20
     names = ["tarnet", "ncnet", "mriv_ncnet", "driv_dmliv"]
-    captions = ["TARNet", "MRIV-Net\w netowrk only", "MRIV-Net (ours)", "DMLIV + DRIV"]
+    captions = ["TARNet", "MRIV-Net\w network only", "MRIV-Net (ours)", "DMLIV + DRIV"]
     colors = ["darkred", "deepskyblue", "darkblue", "black"]
     data_plot = pd.DataFrame(columns=["age", "ite", "Method", "gender"], index=range(2*len(ages)*len(names)))
 
